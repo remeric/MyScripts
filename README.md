@@ -4,3 +4,6 @@ Collection of scripts inside a module that I use - organized and create specific
 
 # Warning
 WARNING: USE AT YOUR OWN RISK.  BE SURE TO REVIEW ALL CODE AND TEST BEFORE IMPLEMENTING.  YOU ARE RESPONSIBLE FOR ANY IMPLEMENTATION.
+
+# My Notes
+Generating module manifests: https://docs.microsoft.com/en-us/powershell/scripting/developer/module/how-to-write-a-powershell-module-manifest?view=powershell-7.2
