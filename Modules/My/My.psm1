@@ -26,7 +26,7 @@ If (Test-Path "$Env:ProgramFiles\WindowsPowerShell\Modules\My") {
 
 #Check for Previous update files and delete them
 If (Test-Path "$Env:SystemDrive\temp\MyModule\My") {
-    Write-Warning "Update folder exists, creating prompt JUST IN CASE you need the old update folder in the temp folder, however you probably don't"
+    Write-Warning "Update folder exists - you don't need this folder unless you saved personal stuff there for some wired reason or want to keep the old update"
     $confirmation = Read-Host "Update folder $Env:SystemDrive\temp\MyModule\My exists, to delete folder and download latest update folder type 'yes'"
         if ($confirmation -ne 'yes') {
             Throw "Aborting due to user input"
@@ -39,15 +39,18 @@ If (Test-Path "$Env:SystemDrive\temp\MyModule\My") {
 #Install
 Write-Host "Creating Directory"
 New-Item -Path "$Env:SystemDrive\temp\MyModule" -Name "My" -ItemType "directory"
+
 Write-Host "Downloading and unzipping files"
 Invoke-WebRequest -Uri "https://github.com/remeric/MyScripts/archive/refs/heads/main.zip" -OutFile "$Env:SystemDrive\temp\MyModule\My\My.zip"
 Expand-Archive -Path "$Env:SystemDrive\temp\MyModule\My\My.zip" -DestinationPath "$Env:SystemDrive\temp\MyModule\My"
+
 Write-Host "Deleting old module version"
 Remove-Item "$Env:ProgramFiles\WindowsPowerShell\Modules\My" -Recurse
+
 Write-Host "Installing (copying) new module version"
 Copy-item -path "$Env:SystemDrive\temp\MyModule\My\MyScripts-main\Modules\*" "$Env:ProgramFiles\WindowsPowerShell\Modules" -Recurse
+
 Write-Host "Cleaning Up Files"
 Remove-item $Env:SystemDrive\temp\MyModule\My -Recurse
 
 }
-

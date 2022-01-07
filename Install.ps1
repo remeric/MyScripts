@@ -3,8 +3,8 @@
 #Removing old installation folder in case this was tried once before and failed and didn't clean up files
 #Or in case you happen to have a folder named "$Env:SystemDrive\temp\MyModule\My"
 If (Test-Path "$Env:SystemDrive\temp\MyModule\My") {
-    Write-Warning "Update folder exists, creating prompt JUST IN CASE you need the old update folder in the temp folder, however you probably don't"
-    $confirmation = Read-Host "Update folder $Env:SystemDrive\temp\MyModule\My exists, to delete folder and download latest update folder type 'yes'"
+    Write-Warning "If this is your first install, why do you have the install/update folder?  Verify the folder has no personal stuff"
+    $confirmation = Read-Host "Install folder $Env:SystemDrive\temp\MyModule\My exists, to delete folder and download latest update folder type 'yes'"
         if ($confirmation -ne 'yes') {
             Throw "Aborting due to user input"
         } else {
