@@ -22,8 +22,10 @@ Expand-Archive -Path "$Env:SystemDrive\temp\MyModule\My\My.zip" -DestinationPath
 
 #Just in case you have installed it before and have an old version
 Write-Host "Deleting old module version"
+If (Test-Path "$Env:ProgramFiles\WindowsPowerShell\Modules\My") {
 Remove-Item "$Env:ProgramFiles\WindowsPowerShell\Modules\My" -Recurse 
 Remove-Item "$Env:ProgramFiles\WindowsPowerShell\Modules\My.Logins" -Recurse
+}
 
 Write-Host "Installing (copying) new module version"
 Copy-item -path "$Env:SystemDrive\temp\MyModule\My\MyScripts-main\Modules\*" "$Env:ProgramFiles\WindowsPowerShell\Modules" -Recurse
