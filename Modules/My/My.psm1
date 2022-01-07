@@ -43,8 +43,7 @@ Write-Host "Downloading and unzipping files"
 Invoke-WebRequest -Uri "https://github.com/remeric/MyScripts/archive/refs/heads/main.zip" -OutFile "$Env:SystemDrive\temp\MyModule\My\My.zip"
 Expand-Archive -Path "$Env:SystemDrive\temp\MyModule\My\My.zip" -DestinationPath "$Env:SystemDrive\temp\MyModule\My"
 Write-Host "Deleting old module version"
-Remove-Item "$Env:ProgramFiles\WindowsPowerShell\Modules\My" -Recurse 
-Remove-Item "$Env:ProgramFiles\WindowsPowerShell\Modules\My.Logins" -Recurse
+Remove-Item "$Env:ProgramFiles\WindowsPowerShell\Modules\My" -Recurse
 Write-Host "Installing (copying) new module version"
 Copy-item -path "$Env:SystemDrive\temp\MyModule\My\MyScripts-main\Modules\*" "$Env:ProgramFiles\WindowsPowerShell\Modules" -Recurse
 Write-Host "Cleaning Up Files"
