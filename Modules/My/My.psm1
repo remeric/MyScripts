@@ -33,6 +33,8 @@ If (Test-Path "$Env:SystemDrive\temp\MyModule\My") {
         } else {
             Write-Host "Removing $Env:SystemDrive\temp\MyModule\My"
             Remove-item $Env:SystemDrive\temp\MyModule\My -Recurse
+            Write-Host "Removing $Env:SystemDrive\temp\MyModule\My.Logins"
+            Remove-item $Env:SystemDrive\temp\MyModule\My.Logins -Recurse
         }
 }
 

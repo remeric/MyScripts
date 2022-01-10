@@ -5,6 +5,7 @@
 
 function Get-MyContext {
 
+    Write-Host "Checking for Logins..."
     #Verify Logins
     $ErrorActionPreference = "stop"
     try {
@@ -22,40 +23,40 @@ function Get-MyContext {
             Throw "Terminating, AZ Powershell not logged in, please run set-mycontext"
     }
     
+    Write-Host "Setting variables"
     #Set variables
     $pscontext = Get-AzContext
-    $clisub = az account show --query "id" -otsv
-    $clisubname = az account subscription show --subscription-id $clisub --query "displayName" -otsv --only-show-errors
-    $clitenant = az account show --query "tenantId" -otsv
-    $clitenantname = az account show --query "name" -otsv
-    $cliuser = az account show --query "user.name" -otsv
+    $clsub = az account show --query "id" -otsv
+    $clsubname = az account subscription show --subscription-id $clsub --query "displayName" -otsv --only-show-errors
+    $cltenant = az account show --query "tenantId" -otsv
+    #Need to figure out how to get from AZ CLI the tenant name, for now at least pulling Tenant ID, will test
+    $cltenantname = Get-AzTenant -TenantId $cltenant | select name
+    $cluser = az account show --query "user.name" -otsv
     $tenantIDname = Get-AzTenant -TenantId $pscontext.Tenant.Id | select Name
-    $matchcheck = $null
+    $matchcheck = $true
 
+    Write-Host "Checking if configs match"
     #Check and make sure Powershell and CLI configs match
-    if ($pscontext.Account.id -ne $cliuser) {
+
+
+    if ($pscontext.Account.id -ne $cluser) {
         $matchcheck = $false
-        break
-    }elseif ($pscontext.Tenant.Id -ne $clitenant) {
+    }elseif ($pscontext.Tenant.Id -ne $cltenant) {
         $matchcheck = $false
-        break
-    }elseif ($pscontext.Subscription.Id -ne $clisub) {
+    }elseif ($pscontext.Subscription.Id -ne $clsub) {
         $matchcheck = $false
-        break
-    }else {
-        $matchcheck = $true
     }
 
+    Write-Host "Writing some errors, if they exist"
     #Write Error information to screen
     If ($matchcheck) {
         Write-Host "INFO: Context configs match.  Verify below contexts are correct" -ForegroundColor DarkGreen -BackgroundColor White
         Write-Host ""
     }elseif ($false -eq $matchcheck) {
-        Throw "Powershell and cLI configs do not match - run set-Myconfig and enter context information"
-    }else {
-        Write-Warning "Checks failed.  Verify Powershell and CLI configs listed below match, if not run set-Myconfig and enter context information"
+        Write-Warning "Powershell and AZ CLI configs do not match - run set-Myconfig and enter context information"
     }
     
+    Write-Host "Write configs to screen"
     #Write Contexts to screen
     Write-Host "Current Powershell Connection" -BackgroundColor White -ForegroundColor DarkGreen
     Write-Host "Account =" $pscontext.Account.id -ForegroundColor DarkGreen
@@ -65,16 +66,14 @@ function Get-MyContext {
     Write-Host "SubID =" $pscontext.Subscription.Id -ForegroundColor DarkGreen
 
     Write-Host "Current AzureCLI Connection" -BackgroundColor White -ForegroundColor DarkGreen
-    Write-Host "Account =" $cliuser -ForegroundColor DarkGreen
-    Write-Host "TenantName =" $clitenantname -ForegroundColor DarkGreen
-    Write-Host "TenantID =" $clitenant -ForegroundColor DarkGreen
-    Write-Host "SubName =" $clisubname -ForegroundColor DarkGreen
-    Write-Host "SubID =" $clisub -ForegroundColor DarkGreen
+    Write-Host "Account =" $cluser -ForegroundColor DarkGreen
+    Write-Host "TenantName =" $cltenantname -ForegroundColor DarkGreen
+    Write-Host "TenantID =" $cltenant -ForegroundColor DarkGreen
+    Write-Host "SubName =" $clsubname -ForegroundColor DarkGreen
+    Write-Host "SubID =" $clsub -ForegroundColor DarkGreen
 
 }
 
-Export-ModuleMember -Function Get-MyContext
-
-
+#Export-ModuleMember -Function Get-MyContext
 
 

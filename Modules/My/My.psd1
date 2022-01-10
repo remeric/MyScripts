@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) Jeremy Hodges. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Collection of functions to use in day to day work'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''

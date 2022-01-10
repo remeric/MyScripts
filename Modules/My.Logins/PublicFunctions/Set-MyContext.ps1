@@ -51,9 +51,9 @@ function set-MyContext
 
     #Get Current Account, Tenant, and Sub for PS and CLI
     $pscontext = Get-AzContext
-    $clisub = az account show --query "id" -otsv
-    $clitenant = az account show --query "tenantId" -otsv
-    $cliuser = az account show --query "user.name" -otsv
+    $clsub = az account show --query "id" -otsv
+    $cltenant = az account show --query "tenantId" -otsv
+    $cluser = az account show --query "user.name" -otsv
 
     Write-Host "Checking to see if any context items need set....."
 
@@ -87,30 +87,30 @@ function set-MyContext
 
     #CLI Commands
         #Check CLI Account
-        if ($cliuser -ne $user) {
-            write-host "Log: Logging out CLI account " $cliuser " and logging in $user"
+        if ($cluser -ne $user) {
+            write-host "Log: Logging out CLI account " $cluser " and logging in $user"
             az Login --tenant $tenantID --only-show-errors --output none
         }
         Else {
-            write-host "Log: CLI User " $cliuser " already logged in"
+            write-host "Log: CLI User " $cluser " already logged in"
         }
 
         #Check CLI Tenant
-        if ($clitenant -ne $tenantID) {
-            Write-Host "Log: Setting CLI Tenant from " $clitenant " to" $tenantID
+        if ($cltenant -ne $tenantID) {
+            Write-Host "Log: Setting CLI Tenant from " $cltenant " to" $tenantID
             az Login --tenant $tenantID --output none --only-show-errors
         }
         Else {
-            write-host "Log: CLI Tenant " $clitenant " already set"
+            write-host "Log: CLI Tenant " $cltenant " already set"
         }
 
         #check CLI Subscription
-        if ($clisub -ne $subscriptionID) {
-            Write-Host "Log: Changing from CLI subscription " $clisub " to" $subscriptionID
+        if ($clsub -ne $subscriptionID) {
+            Write-Host "Log: Changing from CLI subscription " $clsub " to" $subscriptionID
             az account set --subscription $subscriptionID --output none --only-show-errors
         }
         else {
-            Write-Host "Log: CLI Subscription " $clisub " already set"
+            Write-Host "Log: CLI Subscription " $clsub " already set"
         }
 
     Write-Host ""
@@ -119,9 +119,9 @@ function set-MyContext
     #Verify Everything was set correctly and output current logins
 
         $pscontext = Get-AzContext
-        $clisub = az account show --query "id" -otsv
-        $clitenant = az account show --query "tenantId" -otsv
-        $cliuser = az account show --query "user.name" -otsv
+        $clsub = az account show --query "id" -otsv
+        $cltenant = az account show --query "tenantId" -otsv
+        $cluser = az account show --query "user.name" -otsv
         $tenantIDname = Get-AzTenant $tenantID | select Name
 
     #Powershell Commands
@@ -141,17 +141,17 @@ function set-MyContext
         }
 
         #Check CLI Account
-        if ($cliuser -ne $user) {
+        if ($cluser -ne $user) {
             Throw "AZ CLI User Login Failed, Terminating"
         }
 
         #Check CLI Tenant
-        if ($clitenant -ne $tenantID) {
+        if ($cltenant -ne $tenantID) {
             Throw "CLI Tenant Context Set Failed, Terminating"
         }
 
         #check CLI Subscription
-        if ($clisub -ne $subscriptionID) {
+        if ($clsub -ne $subscriptionID) {
             Throw "CLI Subscription Context Set Failed, Terminating"
         }
 
@@ -163,8 +163,6 @@ function set-MyContext
     Write-Host "SubID =" $pscontext.Subscription.Id -ForegroundColor DarkGreen
 
 }
-
-Export-ModuleMember -Function Set-MyContext
 
 
 
