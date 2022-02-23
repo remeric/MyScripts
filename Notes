@@ -1,0 +1,36 @@
+TODO:
+Add ##requires for modules
+
+gh repo clone remeric/MyScripts
+git add *
+git commit -m "message"
+git 
+
+New-ModuleManifest -Path .\My.Logins.psd1
+Test-ModuleManifest -Path .\My.Logins.psd1
+
+$env:PSModulePath -split ';'
+
+    C:\Users\jhodges\OneDrive - Horizontal Integration Inc\Documents\PowerShell\Modules
+    C:\Program Files\PowerShell\Modules
+    c:\program files\powershell\7\Modules
+    C:\Program Files\WindowsPowerShell\Modules
+    C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+    c:\Users\jhodges\.vscode\extensions\ms-vscode.powershell-2021.12.0\modules
+
+copy-item -path "C:\DevOps\github\MyScripts\Modules\*" "$Env:ProgramFiles\WindowsPowerShell\Modules" -Recurse -Force
+#copy-item -path "C:\DevOps\github\MyScripts\Modules\*" "$Env:OneDrive\Documents\WindowsPowerShell\Modules" -Recurse -Force
+
+#copy-item -path "C:\DevOps\github\MyScripts\Modules" "C:\Users\jhodges\OneDrive - Horizontal Integration Inc\Documents\PowerShell" -Recurse -Force
+# copy-item -path "C:\DevOps\github\MyScripts\Modules" $env:USERPROFILE\CustomPSModules -Recurse
+# $env:PSModulePath += ";$env:USERPROFILE\CustomPSModules"
+
+Publish-Module
+
+Import-Module "C:\DevOps\github\MyScripts\Modules\My\my.psm1"
+
+
+Helpful Links
+#Creating script module: https://www.scriptrunner.com/en/blog/building-your-first-powershell-module/
+#creating private repository https://scriptingchris.tech/2021/08/31/how-to-setup-a-private-powershell-repository/
+#Generating module manifests: https://docs.microsoft.com/en-us/powershell/scripting/developer/module/how-to-write-a-powershell-module-manifest?view=powershell-7.2
