@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) Jeremy Hodges. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Various commands to ease my work'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
@@ -69,10 +69,10 @@ Copyright = '(c) Jeremy Hodges. All rights reserved.'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @()
+FunctionsToExport = 'ConvertTo-MyBase64StringCompressed', 'ConvertTo-MyBase64String'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = 'ConvertTo-MyBase64StringCompressed', 'ConvertTo-MyBase64String'
+CmdletsToExport = @()
 
 # Variables to export from this module
 VariablesToExport = '*'
