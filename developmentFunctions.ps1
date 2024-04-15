@@ -28,3 +28,36 @@ function clean-mymodule {
         Get-ChildItem -Path $path -Directory | Where-Object {$_.Name -Match "^My.*"} | Remove-Item -Recurse
     }
 }
+
+
+
+function test-mymodule {
+    get-powershellisadmin
+    $mydevModules = Get-ChildItem .\Modules -Directory | Where-Object {$_.Name -Match "^My.*"}
+    $path = "c:\temp\moduledevelopment"
+    $pathEscaped = "c:\\temp\\moduledevelopment" #update to do programatically.
+    if (!(test-path "$path")) {
+        write-host "creating development folder"
+        New-Item -Path $path -ItemType Directory
+    }
+    foreach ($module in $mydevModules) {
+        Copy-Item $module "$path" -Recurse -Force
+        $file = Get-Item "$path\$($module.Name)\*" | Where-Object {$_.Name -match "/*.psd1"}
+        (Get-Content $file ) -replace "ModuleVersion = .*", "ModuleVersion = '0.0.0'" | Set-Content $file
+        }
+    $p = [Environment]::GetEnvironmentVariable("PSModulePath")
+    if (!($p -match $pathEscaped)) {
+    $p += ";$path"
+    [Environment]::SetEnvironmentVariable("PSModulePath",$p)
+    }
+    start-sleep 1
+    remove-module MyModestModule
+    import-module MyModestModule -RequiredVersion 0.0.0
+}
+
+
+#Revert module to latest after done developing to use latest installed
+function revert-mymodule {
+    remove-module MyModestModule
+    import-module MyModestModule
+}
