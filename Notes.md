@@ -6,7 +6,7 @@ Publishing a Module:
 
 - Run from powershell 5.X :
     - $apikey = Read-Host "enter API key" -AsSecureString
-    - Publish-Module -Path .\Modules\MyModule -NuGetApiKey $apikey
+    - Publish-Module -Path .\Modules\MyModestModule -NuGetApiKey $apikey
 
 Manifests:
 - New-ModuleManifest -Path .pds1path
