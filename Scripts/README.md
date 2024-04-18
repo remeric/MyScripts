@@ -1,0 +1,1 @@
+Convenient place for scipts I am working on before I convert them into a module.
