@@ -5,7 +5,7 @@ Publishing a Module:
     - Install PowershellGet Latest Version - Import-Module PowershellGet -Force #do this as admin, I had to add force because 1.0.0 was already installed, probably from the first publish attempt
 
 - Run from powershell 5.X :
-    - Read-Host "enter API key" -AsSecureString
+    - $apikey = Read-Host "enter API key" -AsSecureString
     - Publish-Module -Path .\Modules\MyModule -NuGetApiKey $apikey
 
 Manifests:
