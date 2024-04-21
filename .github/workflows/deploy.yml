@@ -21,6 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           import-module PowershellGet -Force
+          New-Item C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet -Type Directory
           Invoke-WebRequest https://nuget.org/nuget.exe -OutFile "C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe"
           
       - name: Publish Module
