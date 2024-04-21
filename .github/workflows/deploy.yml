@@ -2,9 +2,15 @@ name: CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths:
+      - Modules/MyModestModule
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+    paths:
+      - Modules/MyModestModule
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
