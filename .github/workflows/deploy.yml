@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          import-module PowershellGet -Force
+          New-Item C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet -Type Directory
+          Invoke-WebRequest https://nuget.org/nuget.exe -OutFile "C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe"
+          
+      - name: Publish Module
+        run: |
+          dir
+          Publish-Module -Path .\Modules\MyModestModule -NuGetApiKey ${{ secrets.psapikey }}
