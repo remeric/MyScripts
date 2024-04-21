@@ -26,4 +26,5 @@ jobs:
           
       - name: Publish Module
         run: |
-          Publish-Module -Path $GITHUB_WORKSPACE\Modules\MyModestModule -NuGetApiKey ${{ secrets.psapikey }}
+          dir
+          Publish-Module -Path .\Modules\MyModestModule -NuGetApiKey ${{ secrets.psapikey }}
