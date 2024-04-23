@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - Modules/MyModestModule
   pull_request:
     branches:
       - main
+      - dev
     paths:
       - Modules/MyModestModule
 
