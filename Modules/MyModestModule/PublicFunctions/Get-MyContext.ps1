@@ -30,9 +30,9 @@ function Get-MyContext {
     $clsubname = az account subscription show --subscription-id $clsub --query "displayName" -otsv --only-show-errors
     $cltenant = az account show --query "tenantId" -otsv
     #Need to figure out how to get from AZ CLI the tenant name, for now at least pulling Tenant ID, will test
-    $cltenantname = Get-AzTenant -TenantId $cltenant | select name
+    $cltenantname = Get-AzTenant -TenantId $cltenant | Select-Object name
     $cluser = az account show --query "user.name" -otsv
-    $tenantIDname = Get-AzTenant -TenantId $pscontext.Tenant.Id | select Name
+    $tenantIDname = Get-AzTenant -TenantId $pscontext.Tenant.Id | Select-Object Name
     $matchcheck = $true
 
     Write-Host "Checking if configs match"
