@@ -6,13 +6,13 @@ on:
       - main
       - dev
     paths:
-      - Modules/MyModestModule
+      - Modules/*
   pull_request:
     branches:
       - main
       - dev
     paths:
-      - Modules/MyModestModule
+      - Modules/*
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
