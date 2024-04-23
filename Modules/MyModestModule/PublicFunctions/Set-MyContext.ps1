@@ -5,7 +5,7 @@
     Example:  $myusernamecompanyname = "accountname" $mytennantcompanyname = "TenantID" $mysubscriptioncompanyname = "SubcriptionID"
 #>
 
-function set-MyContext 
+function set-MyContext
     {
 
 
