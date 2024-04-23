@@ -17,12 +17,12 @@ function Get-MyContext {
             Throw "Terminating, AZ CLI not logged in, please run set-mycontext"
         }
     $ErrorActionPreference = "Continue"
-    
+
     $azcontext = Get-AzContext
     if ($null -eq $azcontext) {
             Throw "Terminating, AZ Powershell not logged in, please run set-mycontext"
     }
-    
+
     Write-Host "Setting variables"
     #Set variables
     $pscontext = Get-AzContext
@@ -55,7 +55,7 @@ function Get-MyContext {
     }elseif ($false -eq $matchcheck) {
         Write-Warning "Powershell and AZ CLI configs do not match - run set-Myconfig and enter context information"
     }
-    
+
     Write-Host "Write configs to screen"
     #Write Contexts to screen
     Write-Host "Current Powershell Connection" -BackgroundColor White -ForegroundColor DarkGreen
