@@ -29,5 +29,7 @@ jobs:
       - name: Test manifest for valid function references
         run: Test-ModuleManifest .\Modules\MyModestModule\MyModestModule.psd1
 
-      # - name: Run ScriptAnalyzer
-      #   run: 
+      - name: Run ScriptAnalyzer
+        run: |
+        $scripts = Get-ChildItem .\Modules\ -Recurse
+        foreach ($script in $scripts) {Invoke-ScriptAnalyzer $script}
