@@ -27,3 +27,13 @@ Helpful Links
 
 ToDo:
 - Sign Package
+
+Testing:
+    Test-ModuleManifest .\Modules\MyModestModule\MyModestModule.psd1
+    Invoke-ScriptAnalyzer .\Modules\MyModestModule\MyModestModule.psm1
+    Install-Module -Name Pester -Force
+    https://github.com/Pester/Pester
+    psPrivateGallery (https://github.com/PowerShell/PSPrivateGallery)
+
+Best Practices:
+https://learn.microsoft.com/en-us/powershell/gallery/concepts/publishing-guidelines?view=powershellget-3.x

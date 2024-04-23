@@ -1,1 +1,1 @@
-Convenient place for scipts I am working on before I convert them into a module.
+Convenient place for tests, helpful scripts, and functions that have yet become modules.

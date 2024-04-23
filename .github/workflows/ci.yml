@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Modules/MyModestModule
+  pull_request:
+    branches:
+      - main
+    paths:
+      - Modules/MyModestModule
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+          
+      - name: Test manifest for valid function references
+        run: Test-ModuleManifest .\Modules\MyModestModule\MyModestModule.psd1
+
+      # - name: Run ScriptAnalyzer
+      #   run: 
