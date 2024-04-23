@@ -31,5 +31,5 @@ jobs:
 
       - name: Run ScriptAnalyzer
         run: |
-        $scripts = Get-ChildItem .\Modules\ -Recurse
-        foreach ($script in $scripts) {Invoke-ScriptAnalyzer $script}
+          $scripts = Get-ChildItem .\Modules\ -Recurse
+          foreach ($script in $scripts) {Invoke-ScriptAnalyzer $script}
