@@ -20,10 +20,10 @@ PS Module Path:
     - [Environment]::SetEnvironmentVariable("PSModulePath",$p)
 
 Helpful Links
-- Creating script module: https://www.scriptrunner.com/en/blog/building-your-first-powershell-module/
-- creating private repository https://scriptingchris.tech/2021/08/31/how-to-setup-a-private-powershell-repository/
-- Generating module manifests: https://docs.microsoft.com/en-us/powershell/scripting/developer/module/how-to-write-a-powershell-module-manifest?view=powershell-7.2
-- Module Installation Rules: https://learn.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module?view=powershell-7.4#rules-for-installing-modules
+- Generating module manifests:
+    https://docs.microsoft.com/en-us/powershell/scripting/developer/module/how-to-write-a-powershell-module-manifest?view=powershell-7.2
+- Module Installation Rules:
+    https://learn.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module?view=powershell-7.4#rules-for-installing-modules
 
 ToDo:
 - Sign Package
@@ -33,7 +33,7 @@ Testing:
     Invoke-ScriptAnalyzer .\Modules\MyModestModule\MyModestModule.psm1
     Install-Module -Name Pester -Force
     https://github.com/Pester/Pester
-    psPrivateGallery (https://github.com/PowerShell/PSPrivateGallery)
+    psPrivateGallery (https://github.com/PowerShell/PSPrivateGallery) - no longer maintained
 
 Best Practices:
 https://learn.microsoft.com/en-us/powershell/gallery/concepts/publishing-guidelines?view=powershellget-3.x

@@ -18,8 +18,8 @@ function set-myDarkMode {
         "notepadPlusPlus"
 
     # if ($list) {
-    #     Write-Host "The following programs will enter dark mode upon running this function"
-    #     Write-Host $Programs
+    #     write-output "The following programs will enter dark mode upon running this function"
+    #     write-output $Programs
         
     # }
 
@@ -35,10 +35,10 @@ function set-myDarkMode {
     }
 
     #Windows System
-    Write-Host "$lightlevel Windows System"
+    write-output "$lightlevel Windows System"
     New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value $int -Type Dword -Force | out-null
 
-    Write-Host "$lightlevel Windows Apps"
+    write-output "$lightlevel Windows Apps"
     #Windows Apps
     New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value $int -Type Dword -Force | out-null
 
@@ -47,7 +47,7 @@ function set-myDarkMode {
     if (Test-Path "$env:APPDATA\Notepad++\config.xml") {
         $config = Get-Content $env:APPDATA\Notepad++\config.xml
         if ($darkmode -And $config -match '"DarkMode" enable="no"') {
-            Write-Host "$lightlevel notepad++"
+            write-output "$lightlevel notepad++"
             Write-Debug "DEBUG:Running section to change dark mode enable from no to yes in notepad++"
             $notepadplusplus = Get-Process | where-Object {$_.ProcessName -eq "notepad++"}
             foreach ($process in $notepadplusplus) {
@@ -57,7 +57,7 @@ function set-myDarkMode {
             (Get-content $env:APPDATA\Notepad++\config.xml).Replace('"DarkMode" enable="no"', '<GUIConfig name="DarkMode" enable="yes"') | set-content $env:APPDATA\Notepad++\config.xml | out-null
             notepad++
         } elseif (!$darkmode -And $config -match '"DarkMode" enable="yes"') {
-            Write-Host "$lightlevel notepad++"
+            write-output "$lightlevel notepad++"
             Write-Debug "DEBUG:Running section to change dark mode enable from yes to no in notepad++"
             $notepadplusplus = Get-Process | where-Object {$_.ProcessName -eq "notepad++"}
             foreach ($process in $notepadplusplus) {
@@ -68,6 +68,6 @@ function set-myDarkMode {
             notepad++
         }
     } else {
-        Write-Host "Notepad++ not installed or config file does not exist at $notepadplusplusconfig"
+        write-output "Notepad++ not installed or config file does not exist at $notepadplusplusconfig"
     }
 }

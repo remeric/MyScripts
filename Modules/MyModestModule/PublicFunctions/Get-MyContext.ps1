@@ -5,7 +5,7 @@
 
 function Get-MyContext {
 
-    Write-Host "Checking for Logins..."
+    write-output "Checking for Logins..."
     #Verify Logins
     $ErrorActionPreference = "stop"
     try {
@@ -23,7 +23,7 @@ function Get-MyContext {
             Throw "Terminating, AZ Powershell not logged in, please run set-mycontext"
     }
 
-    Write-Host "Setting variables"
+    write-output "Setting variables"
     #Set variables
     $pscontext = Get-AzContext
     $clsub = az account show --query "id" -otsv
@@ -35,7 +35,7 @@ function Get-MyContext {
     $tenantIDname = Get-AzTenant -TenantId $pscontext.Tenant.Id | Select-Object Name
     $matchcheck = $true
 
-    Write-Host "Checking if configs match"
+    write-output "Checking if configs match"
     #Check and make sure Powershell and CLI configs match
 
 
@@ -47,30 +47,30 @@ function Get-MyContext {
         $matchcheck = $false
     }
 
-    Write-Host "Writing some errors, if they exist"
+    write-output "Writing some errors, if they exist"
     #Write Error information to screen
     If ($matchcheck) {
-        Write-Host "INFO: Context configs match.  Verify below contexts are correct" -ForegroundColor DarkGreen -BackgroundColor White
-        Write-Host ""
+        write-output "INFO: Context configs match.  Verify below contexts are correct" -ForegroundColor DarkGreen -BackgroundColor White
+        write-output ""
     }elseif ($false -eq $matchcheck) {
         Write-Warning "Powershell and AZ CLI configs do not match - run set-Myconfig and enter context information"
     }
 
-    Write-Host "Write configs to screen"
+    write-output "Write configs to screen"
     #Write Contexts to screen
-    Write-Host "Current Powershell Connection" -BackgroundColor White -ForegroundColor DarkGreen
-    Write-Host "Account =" $pscontext.Account.id -ForegroundColor DarkGreen
-    Write-Host "TenantName =" $tenantIDname.Name -ForegroundColor DarkGreen
-    Write-Host "TenantID =" $pscontext.Tenant.Id -ForegroundColor DarkGreen
-    Write-Host "SubNName =" $pscontext.Subscription.Name -ForegroundColor DarkGreen
-    Write-Host "SubID =" $pscontext.Subscription.Id -ForegroundColor DarkGreen
+    write-output "Current Powershell Connection" -BackgroundColor White -ForegroundColor DarkGreen
+    write-output "Account =" $pscontext.Account.id -ForegroundColor DarkGreen
+    write-output "TenantName =" $tenantIDname.Name -ForegroundColor DarkGreen
+    write-output "TenantID =" $pscontext.Tenant.Id -ForegroundColor DarkGreen
+    write-output "SubNName =" $pscontext.Subscription.Name -ForegroundColor DarkGreen
+    write-output "SubID =" $pscontext.Subscription.Id -ForegroundColor DarkGreen
 
-    Write-Host "Current AzureCLI Connection" -BackgroundColor White -ForegroundColor DarkGreen
-    Write-Host "Account =" $cluser -ForegroundColor DarkGreen
-    Write-Host "TenantName =" $cltenantname -ForegroundColor DarkGreen
-    Write-Host "TenantID =" $cltenant -ForegroundColor DarkGreen
-    Write-Host "SubName =" $clsubname -ForegroundColor DarkGreen
-    Write-Host "SubID =" $clsub -ForegroundColor DarkGreen
+    write-output "Current AzureCLI Connection" -BackgroundColor White -ForegroundColor DarkGreen
+    write-output "Account =" $cluser -ForegroundColor DarkGreen
+    write-output "TenantName =" $cltenantname -ForegroundColor DarkGreen
+    write-output "TenantID =" $cltenant -ForegroundColor DarkGreen
+    write-output "SubName =" $clsubname -ForegroundColor DarkGreen
+    write-output "SubID =" $clsub -ForegroundColor DarkGreen
 
 }
 

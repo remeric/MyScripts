@@ -24,8 +24,8 @@ function set-MyContext
 
         )
 
-    Write-Host ""
-    Write-Host "Verifying Azure CLI and PS are even logged in..."
+    write-output ""
+    write-output "Verifying Azure CLI and PS are even logged in..."
 
     #Verify Azure CLI is logged in, and if not log it in
     #Try/Catch setup to supress error as AZ CLI can't natively suppress errors
@@ -55,66 +55,66 @@ function set-MyContext
     $cltenant = az account show --query "tenantId" -otsv
     $cluser = az account show --query "user.name" -otsv
 
-    Write-Host "Checking to see if any context items need set....."
+    write-output "Checking to see if any context items need set....."
 
     #Powershell Commands
         #Check PS Account
         if ($pscontext.Account.id -ne $user) {
-            write-Host "Log: Logging out PS account " $pscontext.Account.id " and logging in $user"
+            write-output "Log: Logging out PS account " $pscontext.Account.id " and logging in $user"
             Connect-AzAccount -Tenant $tenantID -Subscription $subscriptionID | out-null
         }
         Else {
-            Write-Host "Log: PS User " $pscontext.Account.id " already logged in"
+            write-output "Log: PS User " $pscontext.Account.id " already logged in"
         }
 
         #Check PS Tenant
         if ($pscontext.Tenant.id -ne $tenantID) {
-            Write-Host "Log: Setting PS Tenant from " $pscontext.Tenant.id " to" $tenantID
+            write-output "Log: Setting PS Tenant from " $pscontext.Tenant.id " to" $tenantID
             Set-AzContext -Tenant $tenantID -Subscription $subscriptionID | out-null
         }
         Else {
-            write-host "Log: PS Tenant " $pscontext.Tenant.id " already set"
+            write-output "Log: PS Tenant " $pscontext.Tenant.id " already set"
         }
 
         #check PS Subscription
         if ($pscontext.subscription.id -ne $subscriptionID) {
-            Write-Host "Log: Changing from PS subscription " $pscontext.Subscription.id " to" $subscriptionID
+            write-output "Log: Changing from PS subscription " $pscontext.Subscription.id " to" $subscriptionID
             Set-AzContext -Tenant $tenantID -Subscription $subscriptionID | out-null
         }
         else {
-            Write-Host "Log: PS Subscription " $pscontext.Subscription.id " already set"
+            write-output "Log: PS Subscription " $pscontext.Subscription.id " already set"
         }
 
     #CLI Commands
         #Check CLI Account
         if ($cluser -ne $user) {
-            write-host "Log: Logging out CLI account " $cluser " and logging in $user"
+            write-output "Log: Logging out CLI account " $cluser " and logging in $user"
             az Login --tenant $tenantID --only-show-errors --output none
         }
         Else {
-            write-host "Log: CLI User " $cluser " already logged in"
+            write-output "Log: CLI User " $cluser " already logged in"
         }
 
         #Check CLI Tenant
         if ($cltenant -ne $tenantID) {
-            Write-Host "Log: Setting CLI Tenant from " $cltenant " to" $tenantID
+            write-output "Log: Setting CLI Tenant from " $cltenant " to" $tenantID
             az Login --tenant $tenantID --output none --only-show-errors
         }
         Else {
-            write-host "Log: CLI Tenant " $cltenant " already set"
+            write-output "Log: CLI Tenant " $cltenant " already set"
         }
 
         #check CLI Subscription
         if ($clsub -ne $subscriptionID) {
-            Write-Host "Log: Changing from CLI subscription " $clsub " to" $subscriptionID
+            write-output "Log: Changing from CLI subscription " $clsub " to" $subscriptionID
             az account set --subscription $subscriptionID --output none --only-show-errors
         }
         else {
-            Write-Host "Log: CLI Subscription " $clsub " already set"
+            write-output "Log: CLI Subscription " $clsub " already set"
         }
 
-    Write-Host ""
-    Write-Host "Verifying all contexts were set correctly...."
+    write-output ""
+    write-output "Verifying all contexts were set correctly...."
 
     #Verify Everything was set correctly and output current logins
 
@@ -155,12 +155,12 @@ function set-MyContext
             Throw "CLI Subscription Context Set Failed, Terminating"
         }
 
-    Write-Host "Current Connection Information" -BackgroundColor White -ForegroundColor DarkGreen
-    Write-Host "Account =" $pscontext.Account.id -ForegroundColor DarkGreen
-    Write-Host "TenantName =" $tenantIDname -ForegroundColor DarkGreen
-    Write-Host "TenantID =" $pscontext.Tenant.Id -ForegroundColor DarkGreen
-    Write-Host "SubNName =" $pscontext.Subscription.Name -ForegroundColor DarkGreen
-    Write-Host "SubID =" $pscontext.Subscription.Id -ForegroundColor DarkGreen
+    write-output "Current Connection Information" -BackgroundColor White -ForegroundColor DarkGreen
+    write-output "Account =" $pscontext.Account.id -ForegroundColor DarkGreen
+    write-output "TenantName =" $tenantIDname -ForegroundColor DarkGreen
+    write-output "TenantID =" $pscontext.Tenant.Id -ForegroundColor DarkGreen
+    write-output "SubNName =" $pscontext.Subscription.Name -ForegroundColor DarkGreen
+    write-output "SubID =" $pscontext.Subscription.Id -ForegroundColor DarkGreen
 
 }
 
